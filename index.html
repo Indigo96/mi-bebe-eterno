@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje Bonito - Estilo Hacker</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .console {
+            width: 80%;
+            padding: 20px;
+            border: 2px solid #00ff00;
+            background-color: black;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        h1 {
+            animation: blink 1s steps(2, start) infinite;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .line {
+            position: absolute;
+            color: #00ff00;
+            white-space: nowrap;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="rain"></div>
+    <div class="console">
+        <h1>Access Granted...</h1>
+        <p>Loading message...<span id="dots"></span></p>
+        <p id="message" style="display:none;">Hoy me levanté recordando todo lo bonito que hemos vivido, te amo mucho. Espero que tengas un maravilloso día y que Dios te bendiga y te proteja siempre. Besos.</p>
+    </div>
+
+    <script>
+        // Simulación de carga tipo "hacker"
+        let dots = document.getElementById('dots');
+        let message = document.getElementById('message');
+        let interval = setInterval(() => {
+            dots.textContent += '.';
+            if (dots.textContent.length > 3) {
+                dots.textContent = '';
+            }
+        }, 500);
+
+        // Mostrar el mensaje después de un tiempo
+        setTimeout(() => {
+            clearInterval(interval);
+            dots.style.display = 'none';
+            message.style.display = 'block';
+        }, 3000);
+
+        // Generar lluvia de código
+        function createRain() {
+            const rain = document.querySelector('.rain');
+            const lines = ['Loading...', 'Accessing...', 'Decrypting...', 'Connecting to server...', 'Fetching data...', 'Establishing connection...'];
+            for (let i = 0; i < 20; i++) {
+                const line = document.createElement('div');
+                line.className = 'line';
+                line.textContent = lines[Math.floor(Math.random() * lines.length)];
+                line.style.left = Math.random() * 100 + 'vw';
+                line.style.animationDuration = Math.random() * 2 + 3 + 's';
+                rain.appendChild(line);
+            }
+        }
+
+        createRain();
+    </script>
+</body>
+</html>
